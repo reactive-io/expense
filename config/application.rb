@@ -21,7 +21,14 @@ module Expense
     # config.i18n.default_locale = :de
 
     config.paths['config/routes.rb'] << 'config/routes/api.rb'
-    config.paths['config/routes.rb'] << 'config/routes/root.rb'
     config.paths['config/routes.rb'] << 'config/routes/web.rb'
+
+    config.to_prepare do
+      layout = 'web/layouts/application'
+
+      Devise::SessionsController.layout layout
+      Devise::RegistrationsController.layout layout
+      Devise::PasswordsController.layout layout
+    end
   end
 end

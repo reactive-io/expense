@@ -4,3 +4,56 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body {
+  padding-top: 70px;
+}
+
+.bs-callout
+{
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+  margin: 20px 0;
+  padding: 20px;
+}
+.bs-callout h2
+{
+  margin-bottom: 5px;
+  margin-top: 0;
+}
+.bs-callout p:last-child
+{
+  margin-bottom: 0;
+}
+.bs-callout code
+{
+  border-radius: 3px;
+}
+.bs-callout+.bs-callout
+{
+  margin-top: -5px;
+}
+.bs-callout-danger
+{
+  border-left-color: #d9534f;
+}
+.bs-callout-danger h2
+{
+  color: #d9534f;
+}
+.bs-callout-warning
+{
+  border-left-color: #f0ad4e;
+}
+.bs-callout-warning h2
+{
+  color: #f0ad4e;
+}
+.bs-callout-info
+{
+  border-left-color: #5bc0de;
+}
+.bs-callout-info h2
+{
+  color: #5bc0de;
+}
