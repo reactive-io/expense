@@ -1,0 +1,9 @@
+development:
+  adapter: postgresql
+  database: expense_development
+  username: expense
+
+test:
+  adapter: postgresql
+  database: expense_test
+  username: expense
