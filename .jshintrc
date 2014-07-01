@@ -1,0 +1,24 @@
+{
+  "browser": true,  // specifies globals exposed by modern browsers
+  "strict": true,   // specifies that restricted JavaScript is used
+
+  "indent": 2,      // indentation should consistently be 2 spaces
+
+  "nonew": true,    // prevents using constructers for side effects
+  "noarg": true,    // prevents using deprecated caller,callee methods
+  "eqeqeq": true,   // prevents equality == and != operators from being used
+  "bitwise": true,  // prevents bitwise & and | operators from being used
+  "plusplus": true, // prevents unary x++ and x-- operators from being used
+  "nonbsp": true,   // prevents non-breaking-spaces from being used
+  "noempty": true,  // prevents empty blocks from being used
+  "trailing": true, // prevents trailing whitespace at the end of a statement
+
+  "newcap": true,   // ensures that constructers start with uppercase letter
+  "forin": true,    // ensures that for loops filter inherited methods
+  "immed": true,    // ensures immediate function invocations are wrapped in parantheses
+  "curly": true,    // ensures all code blocks are wrapped in braces
+  "undef": true,    // ensures that all variables are defined before they are used
+  "latedef": true,  // ensures that a variable definition comes before usage
+  "onevar": true,   // ensures functions can only define variables once
+  "unused": true    // ensures that variables defined must be used
+}

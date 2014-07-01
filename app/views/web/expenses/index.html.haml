@@ -1,1 +1,84 @@
-%h1= @data
+%div{data: {bind: 'with: expenses'}}
+  .row
+    .col.col-md-12
+      %button.btn.btn-primary{data: {toggle: 'modal', target: '#expense-modal', bind: 'click: newExpense'}}
+        %span.glyphicon.glyphicon-plus
+        New Expense
+
+
+  .row
+    .col.col-md-12
+      %table.table.table-hover
+        %thead
+          %tr
+            %th{style: 'width: 50px'} ID
+            %th{style: 'width: 175px;'} Expensed At
+            %th{style: 'width: 300px;'} Description
+            %th Comment
+            %th{style: 'width: 100px;'} Amount
+
+        %tbody{data: {bind: 'foreach: expenses'}}
+          %tr.cursor-pointer{data: {toggle: 'modal', target: '#expense-modal', bind: 'click: $parent.editExpense, with: values'}}
+            %td{data: {bind: 'text: id'}}
+            %td{data: {bind: 'text: $parent.formattedExpensedAt'}}
+            %td{data: {bind: 'text: description'}}
+            %td{data: {bind: 'text: comment'}}
+            %td{data: {bind: 'text: amount'}}
+
+  #expense-modal.modal.fade{tabindex: -1, role: 'dialog', data: {bind: 'with: expenseModal'}}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{type: 'button', data: {dismiss: 'modal'}} &times;
+          %h4.modal-title Expense
+
+        .modal-body{data: {bind: 'with: values'}}
+          .form-group
+            %label Expensed At
+            .input-group{data: {bind: 'datetime: {}'}}
+              %span.input-group-addon.cursor-pointer
+                %span.glyphicon.glyphicon-calendar
+              %input.form-control{type: 'text', data: {bind: 'value: $parent.formattedExpensedAt, datetime: {}'}}
+
+          .form-group
+            %label Description
+            .input-group
+              %span.input-group-addon
+                %span.glyphicon.glyphicon-info-sign
+              %input.form-control{type: 'text', placeholder: 'e.g. Coffee at Dunkin Donuts', data: {bind: 'value: description'}}
+
+          .form-group
+            %label Comment
+            .input-group
+              %span.input-group-addon
+                %span.glyphicon.glyphicon-comment
+              %input.form-control{type: 'text', placeholder: 'e.g. Needed caffeine before meeting', data: {bind: 'value: comment'}}
+
+          .form-group
+            %label Amount
+            .input-group
+              %span.input-group-addon
+                %span.glyphicon.glyphicon-usd
+              %input.form-control{type: 'text', data: {bind: 'value: amount'}}
+
+        .modal-footer
+          %button.btn.btn-default{data: {dismiss: 'modal'}}
+            %span.glyphicon.glyphicon-remove
+            Close
+
+          %button.btn.btn-success{data: {dismiss: 'modal', bind: 'click: $parent.saveExpense'}}
+            %span.glyphicon.glyphicon-cloud-upload
+            Save
+
+          / ko ifnot: isNew
+          %button.btn.btn-danger{data: {dismiss: 'modal', bind: 'click: $parent.deleteExpense'}}
+            %span.glyphicon.glyphicon-trash
+            Delete
+          / /ko
+
+
+:javascript
+  app.viewModels = new app.ViewModels();
+  app.viewModels.expenses = new app.ViewModels.Expenses();
+
+  ko.applyBindings(app.viewModels);
