@@ -6,20 +6,53 @@
   app.ViewModels.Expenses = function Expenses() {
     var self = this;
 
+    $(function() {
+      self.filterExpenses();
+    });
+
     self.expenses = ko.observableArray([]);
 
-    $(function() {
-      var ajax = $.ajax("/api/expenses");
+    self.expenseModal   = ko.observable();
+    self.expensePointer = ko.observable();
+
+    self.expensedAtFrom  = ko.observable();
+    self.expensedAtUntil = ko.observable();
+
+    self.filters = {
+      id: ko.observable(),
+      description: ko.observable(),
+      comment: ko.observable(),
+      expensed_at: (function() {
+        var fn = function(attr) {
+          if (attr()) {
+            return moment(attr(), app.ViewModels.Expenses.options.datetimeFormat).toISOString();
+          }
+        };
+
+        return {
+          gte: fn(self.expensedAtFrom),
+          lte: fn(self.expensedAtUntil)
+        };
+      })(),
+      amount: {
+        gte: ko.observable(),
+        lte: ko.observable()
+      }
+    };
+
+    self.filterError = ko.observable();
+
+    self.filterExpenses = function() {
+      var ajax = $.ajax("/api/expenses", {data: ko.toJS(self.filters)});
 
       ajax.done(function(data) {
+        self.expenses.removeAll();
+
         $.each(data.expenses, function() {
           self.expenses.push(new app.ViewModels.Expenses.Expense(this));
         });
       });
-    });
-
-    self.expenseModal   = ko.observable();
-    self.expensePointer = ko.observable();
+    };
 
     self.newExpense = function() {
       self.expenseModal(new app.ViewModels.Expenses.Expense({
@@ -46,8 +79,8 @@
       else {
         ajax = $.ajax("/api/expenses/" + expense.values().id(), {type: 'PATCH', data: {expense: values}})
         .done(function(data) {
-          $.each(data.expense, function(key, value) {
-            self.expensePointer().values()[key](value);
+          $.each(["expensed_at", "description", "comment", "amount"], function() {
+            self.expensePointer().values()[this](data.expense[this]);
           });
         });
       }

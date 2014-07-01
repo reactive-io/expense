@@ -17,6 +17,12 @@ body {
   display: inline;
 }
 
+.border-bottom {
+  padding-bottom: 9px;
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid #eee;
+}
+
 .bs-callout
 {
   border: 1px solid #eee;
