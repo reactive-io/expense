@@ -41,32 +41,36 @@
               %input.form-control{type: 'text', data: {bind: 'value: $parent.formattedExpensedAt, datetime: {}'}}
 
           .form-group
-            %label Description
-            .input-group
+            %label
+              Description
+              %i.help-block.display-inline Must be present
+            .input-group{data: {bind: 'validationError: description'}}
               %span.input-group-addon
                 %span.glyphicon.glyphicon-info-sign
-              %input.form-control{type: 'text', placeholder: 'e.g. Coffee at Dunkin Donuts', data: {bind: 'value: description'}}
+              %input.form-control{type: 'text', placeholder: 'e.g. Coffee at Dunkin Donuts', data: {bind: 'value: description, valueUpdate: "input"'}}
+
+          .form-group
+            %label
+              Amount
+              %i.help-block.display-inline Must be valid dollar amount
+            .input-group{data: {bind: 'validationError: amount'}}
+              %span.input-group-addon
+                %span.glyphicon.glyphicon-usd
+              %input.form-control{type: 'text', data: {bind: 'value: amount, valueUpdate: "input"'}}
 
           .form-group
             %label Comment
             .input-group
               %span.input-group-addon
                 %span.glyphicon.glyphicon-comment
-              %input.form-control{type: 'text', placeholder: 'e.g. Needed caffeine before meeting', data: {bind: 'value: comment'}}
-
-          .form-group
-            %label Amount
-            .input-group
-              %span.input-group-addon
-                %span.glyphicon.glyphicon-usd
-              %input.form-control{type: 'text', data: {bind: 'value: amount'}}
+              %input.form-control{type: 'text', placeholder: 'e.g. Needed caffeine before meeting', data: {bind: 'value: comment, valueUpdate: "input"'}}
 
         .modal-footer
           %button.btn.btn-default{data: {dismiss: 'modal'}}
             %span.glyphicon.glyphicon-remove
             Close
 
-          %button.btn.btn-success{data: {dismiss: 'modal', bind: 'click: $parent.saveExpense'}}
+          %button.btn.btn-success{data: {dismiss: 'modal', bind: 'enable: values.isValid, click: $parent.saveExpense'}}
             %span.glyphicon.glyphicon-cloud-upload
             Save
 

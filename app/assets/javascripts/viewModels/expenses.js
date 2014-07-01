@@ -51,10 +51,6 @@
           });
         });
       }
-
-      ajax.fail(function() {
-        console.log(arguments);
-      });
     };
 
     self.deleteExpense = function() {
@@ -74,10 +70,10 @@
 
     self.values = ko.validatedObservable({
       id:          ko.observable(data.id),
-      description: ko.observable(data.description),
+      description: ko.observable(data.description).extend({required: true}),
       comment:     ko.observable(data.comment),
-      amount:      ko.observable(data.amount),
-      expensed_at: ko.observable(data.expensed_at)
+      amount:      ko.observable(data.amount).extend({required: true, pattern: {message: "This field must be a valid dollar amount", params: /^[0-9]*(\.?[0-9]{0,2})$/}}),
+      expensed_at: ko.observable(data.expensed_at).extend({required: true})
     });
 
     self.formattedExpensedAt = ko.computed({

@@ -3,6 +3,6 @@ class ExpenseItem < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :expensed_at, :description, :comment, :amount, :user_id, presence: true
+  validates :expensed_at, :description, :amount, :user_id, presence: true
   validates :amount, numericality: true
 end
