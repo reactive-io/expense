@@ -37,8 +37,8 @@ module Api
 
     def update
       values = params
-      .require(:expense)
-      .permit(:expensed_at, :description, :comment, :amount)
+              .require(:expense)
+              .permit(:expensed_at, :description, :comment, :amount)
 
       expense = current_user.expense_items.find(params[:id])
 

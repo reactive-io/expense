@@ -12,12 +12,8 @@
 
     self.expenses = ko.observableArray([]);
 
-    self.expensePointer = ko.observable();
-
     self.expenseModal  = ko.observable();
-
-    self.expensedAtFrom  = ko.observable();
-    self.expensedAtUntil = ko.observable();
+    self.expensePointer = ko.observable();
 
     self.filters = {
       id: ko.observable(),
@@ -33,7 +29,7 @@
       }
     };
 
-    // work around to get datepicker always input ISO-8601 string for date filters
+    // work around to get the datepicker to always use an ISO-8601 string for date filters
     self.subscriptions = {
       expensed_at: {
         gte: ko.observable(),
