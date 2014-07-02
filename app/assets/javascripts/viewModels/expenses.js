@@ -23,25 +23,36 @@
       id: ko.observable(),
       description: ko.observable(),
       comment: ko.observable(),
-      expensed_at: (function() {
-        var fn = function(attr) {
-          if (attr()) {
-            return moment(attr(), app.ViewModels.Expenses.options.datetimeFormat).toISOString();
-          }
-        };
-
-        return {
-          gte: fn(self.expensedAtFrom),
-          lte: fn(self.expensedAtUntil)
-        };
-      })(),
       amount: {
+        gte: ko.observable(),
+        lte: ko.observable()
+      },
+      expensed_at: {
         gte: ko.observable(),
         lte: ko.observable()
       }
     };
 
-    self.filterError = ko.observable();
+    // work around to get datepicker always input ISO-8601 string for date filters
+    self.subscriptions = {
+      expensed_at: {
+        gte: ko.observable(),
+        lte: ko.observable()
+      }
+    };
+
+    $.each(self.subscriptions.expensed_at, function(key, val) {
+      val.subscribe(function(newValue) {
+        var mnt = moment(newValue, app.ViewModels.Expenses.options.datetimeFormat);
+
+        if (mnt.isValid()) {
+          self.filters.expensed_at[key](mnt.toISOString());
+        }
+        else {
+          self.filters.expensed_at[key](undefined);
+        }
+      });
+    });
 
     self.filterExpenses = function() {
       var ajax = $.ajax("/api/expenses", {data: ko.toJS(self.filters)});

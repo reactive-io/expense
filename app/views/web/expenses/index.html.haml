@@ -37,10 +37,10 @@
     .col.col-md-3
       .form-group
         %label Expensed At From
-        .input-group{data: {bind: 'datetime: {}'}}
+        .input-group{data: {bind: 'datetime: expensed_at.gte'}}
           %span.input-group-addon.cursor-pointer
             %span.glyphicon.glyphicon-calendar
-          %input.form-control{type: 'text', data: {bind: 'value: $parent.expensedAtFrom, datetime: {}, valueUpdate: "change"'}}
+          %input.form-control{type: 'text', data: {bind: 'value: $parent.subscriptions.expensed_at.gte, valueUpdate: "input"'}}
 
       .form-group
         %label Amount From
@@ -52,10 +52,10 @@
     .col.col-md-3
       .form-group
         %label Expensed At Until
-        .input-group
+        .input-group{data: {bind: 'datetime: expensed_at.lte'}}
           %span.input-group-addon.cursor-pointer
             %span.glyphicon.glyphicon-calendar
-          %input.form-control{type: 'text', data: {bind: 'value: $parent.expensedAtUntil, datetime: {}'}}
+          %input.form-control{type: 'text', data: {bind: 'value: $parent.subscriptions.expensed_at.lte, valueUpdate: "input"'}}
 
       .form-group
         %label Amount Until
@@ -98,10 +98,10 @@
             %label
               Expensed At
               %i.help-block.display-inline Must be a valid date
-            .input-group{data: {bind: 'validationError: expensed_at, datetime: {}'}}
+            .input-group{data: {bind: 'validationError: expensed_at, datetime: expensed_at'}}
               %span.input-group-addon.cursor-pointer
                 %span.glyphicon.glyphicon-calendar
-              %input.form-control{type: 'text', data: {bind: 'value: $parent.formattedExpensedAt, datetime: {}'}}
+              %input.form-control{type: 'text', data: {bind: 'value: $parent.formattedExpensedAt'}}
 
           .form-group
             %label
