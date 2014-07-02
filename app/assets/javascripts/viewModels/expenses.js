@@ -1,4 +1,4 @@
-/*global app,confirm,ko,moment,$*/
+/*global app,alert,confirm,ko,moment,$*/
 
 (function() {
   "use strict";
@@ -12,8 +12,9 @@
 
     self.expenses = ko.observableArray([]);
 
-    self.expenseModal   = ko.observable();
     self.expensePointer = ko.observable();
+
+    self.expenseModal  = ko.observable();
 
     self.expensedAtFrom  = ko.observable();
     self.expensedAtUntil = ko.observable();
@@ -52,6 +53,10 @@
           self.expenses.push(new app.ViewModels.Expenses.Expense(this));
         });
       });
+
+      ajax.fail(function() {
+        alert("Seems some filters are not valid, please try again.");
+      });
     };
 
     self.newExpense = function() {
@@ -84,6 +89,15 @@
           });
         });
       }
+
+      ajax.done(function() {
+        $("#expense-modal").modal("hide");
+        self.expenseModal.error(false);
+      });
+
+      ajax.fail(function() {
+        alert("Seems some values are not correct, please try again.");
+      });
     };
 
     self.deleteExpense = function() {
@@ -105,7 +119,7 @@
       id:          ko.observable(data.id),
       description: ko.observable(data.description).extend({required: true}),
       comment:     ko.observable(data.comment),
-      amount:      ko.observable(data.amount).extend({required: true, pattern: {message: "This field must be a valid dollar amount", params: /^[0-9]*(\.?[0-9]{0,2})$/}}),
+      amount:      ko.observable(data.amount).extend({required: true, pattern: /^[0-9]*(\.?[0-9]{0,2})$/}),
       expensed_at: ko.observable(data.expensed_at).extend({required: true})
     });
 

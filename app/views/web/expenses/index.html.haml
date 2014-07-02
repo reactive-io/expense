@@ -1,6 +1,4 @@
 %div{data: {bind: 'with: expenses'}}
-  -#.alert.alert-warning{role: 'alert'}
-
   %form.row{data: {bind: 'submit: filterExpenses, with: filters'}}
     .col.col-md-3
       .form-group
@@ -97,8 +95,10 @@
 
         .modal-body{data: {bind: 'with: values'}}
           .form-group
-            %label Expensed At
-            .input-group{data: {bind: 'datetime: {}'}}
+            %label
+              Expensed At
+              %i.help-block.display-inline Must be a valid date
+            .input-group{data: {bind: 'validationError: expensed_at, datetime: {}'}}
               %span.input-group-addon.cursor-pointer
                 %span.glyphicon.glyphicon-calendar
               %input.form-control{type: 'text', data: {bind: 'value: $parent.formattedExpensedAt, datetime: {}'}}
@@ -133,7 +133,7 @@
             %span.glyphicon.glyphicon-remove
             Close
 
-          %button.btn.btn-success{data: {dismiss: 'modal', bind: 'enable: values.isValid, click: $parent.saveExpense'}}
+          %button.btn.btn-success{data: {bind: 'enable: values.isValid, click: $parent.saveExpense'}}
             %span.glyphicon.glyphicon-cloud-upload
             Save
 
