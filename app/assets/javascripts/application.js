@@ -1,21 +1,20 @@
 //= require moment
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap-sprockets
 //= require bootstrap-datetimepicker
+//= require bootstrap-sprockets
+//= require angular-1.3.0-beta.min
 
-//= require knockout-3.1.0.min
-//= require knockout-validation-1.0.2.min
+//= require ./services/ngRails
 
-//= require ko
+//= require ./modules/forms
+
+//= require ./controllers/expenses
 
 //= require_self
-//= require viewModels
 
 (function() {
   "use strict";
 
-  window.app = {};
+  angular.module('application', ['ngRails', 'myForms', 'controllers']);
 })();
-
-

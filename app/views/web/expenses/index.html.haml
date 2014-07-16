@@ -1,68 +1,36 @@
-%div{data: {bind: 'with: expenses'}}
-  %form.row{data: {bind: 'submit: filterExpenses, with: filters'}}
+%div(ng-controller="expensesController" ng-init="table.filterExpenses()")
+  %form.row(ng-submit="table.filterExpenses()")
     .col.col-md-3
-      .form-group
-        %label ID
-        .input-group
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-th-list
-          %input.form-control{type: 'text', data: {bind: 'value: id'}}
+      .form-group(my-input="ID" my-input-icon="th-list")
+        %input.form-control(type="text" ng-model="filters.id")
 
       .form-group
         %label &nbsp;
         .input-group
-          %button.btn.btn-primary{style: 'margin-right: 10px;', data: {bind: 'click: $parent.filterExpenses'}}
-            %span.glyphicon.glyphicon-filter
-            Filter List
+          %button(my-button="Filter List" my-button-icon="filter" my-button-color="primary" style="margin-right: 10px;")
 
-          %button.btn.btn-success{data: {toggle: 'modal', target: '#expense-modal', bind: 'click: $parent.newExpense'}}
-            %span.glyphicon.glyphicon-plus
-            New Expense
+          %a(my-button="New Expense" my-button-icon="plus" my-button-color="success" ng-click="table.newExpense()" data-toggle="modal" data-target="#expense-modal")
 
     .col.col-md-3
-      .form-group
-        %label Description
-        .input-group
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-info-sign
-          %input.form-control{type: 'text', data: {bind: 'value: description'}}
+      .form-group(my-input="Description" my-input-icon="info-sign")
+        %input.form-control(type="text" ng-model="filters.description")
 
-      .form-group
-        %label Comment
-        .input-group
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-comment
-          %input.form-control{type: 'text', data: {bind: 'value: comment'}}
+      .form-group(my-input="Comment" my-input-icon="comment")
+        %input.form-control(type="text" ng-model="filters.comment")
 
     .col.col-md-3
-      .form-group
-        %label Expensed At From
-        .input-group{data: {bind: 'datetime: expensed_at.gte'}}
-          %span.input-group-addon.cursor-pointer
-            %span.glyphicon.glyphicon-calendar
-          %input.form-control{type: 'text', data: {bind: 'value: $parent.subscriptions.expensed_at.gte, valueUpdate: "input"'}}
+      .form-group(my-input="Expensed At From" my-input-icon="calendar")
+        %input.form-control(type="text" ng-model="filters.expensed_at__gte")
 
-      .form-group
-        %label Amount From
-        .input-group
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-usd
-          %input.form-control{type: 'text', data: {bind: 'value: amount.gte'}}
+      .form-group(my-input="Amount From" my-input-icon="usd")
+        %input.form-control(type="text" ng-model="filters.amount__gte")
 
     .col.col-md-3
-      .form-group
-        %label Expensed At Until
-        .input-group{data: {bind: 'datetime: expensed_at.lte'}}
-          %span.input-group-addon.cursor-pointer
-            %span.glyphicon.glyphicon-calendar
-          %input.form-control{type: 'text', data: {bind: 'value: $parent.subscriptions.expensed_at.lte, valueUpdate: "input"'}}
+      .form-group(my-input="Expensed At Until" my-input-icon="calendar")
+        %input.form-control(type="text" ng-model="filters.expensed_at__lte")
 
-      .form-group
-        %label Amount Until
-        .input-group
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-usd
-          %input.form-control{type: 'text', data: {bind: 'value: amount.lte'}}
+      .form-group(my-input="Amount Until" my-input-icon="usd")
+        %input.form-control(type="text" ng-model="filters.amount__lte")
 
   .row.border-bottom
     .col.col-md-12
@@ -72,80 +40,43 @@
       %table.table.table-hover
         %thead
           %tr
-            %th{style: 'width: 50px'} ID
-            %th{style: 'width: 175px;'} Expensed At
-            %th{style: 'width: 300px;'} Description
+            %th(style="width: 50px;") ID
+            %th(style="width: 175px;") Expensed At
+            %th(style="width: 300px;") Description
             %th Comment
-            %th{style: 'width: 100px;'} Amount
+            %th(style="width: 100px;") Amount
 
-        %tbody{data: {bind: 'foreach: expenses'}}
-          %tr.cursor-pointer{data: {toggle: 'modal', target: '#expense-modal', bind: 'click: $parent.editExpense, with: values'}}
-            %td{data: {bind: 'text: id'}}
-            %td{data: {bind: 'text: $parent.formattedExpensedAt'}}
-            %td{data: {bind: 'text: description'}}
-            %td{data: {bind: 'text: comment'}}
-            %td{data: {bind: 'text: amount'}}
+        %tbody
+          %tr.cursor-pointer(data-toggle="modal" data-target="#expense-modal" ng-repeat="expense in table.expenses" ng-click="table.editExpense(expense, $index)")
+            %td(ng-bind="expense.id")
+            %td(ng-bind="expense.expensed_at | date: 'MM/dd/yyyy h:mm a'")
+            %td(ng-bind="expense.description")
+            %td(ng-bind="expense.comment")
+            %td(ng-bind="expense.amount")
 
-  #expense-modal.modal.fade{tabindex: -1, role: 'dialog', data: {bind: 'with: expenseModal'}}
+  #expense-modal.modal.fade(tabindex="-1" role="dialog")
     .modal-dialog
-      .modal-content
+      %form.modal-content(ng-submit="modal.saveExpense()")
         .modal-header
-          %button.close{type: 'button', data: {dismiss: 'modal'}} &times;
+          %a.close(data-dismiss="modal") &times;
           %h4.modal-title Expense
 
-        .modal-body{data: {bind: 'with: values'}}
-          .form-group
-            %label
-              Expensed At
-              %i.help-block.display-inline Must be a valid date
-            .input-group{data: {bind: 'validationError: expensed_at, datetime: expensed_at'}}
-              %span.input-group-addon.cursor-pointer
-                %span.glyphicon.glyphicon-calendar
-              %input.form-control{type: 'text', data: {bind: 'value: $parent.formattedExpensedAt'}}
+        .modal-body
+          .form-group(my-input="Expensed" my-input-icon="calendar")
+            %input.form-control(type="text" ng-model="modal.expense.expensed_at")
 
-          .form-group
-            %label
-              Description
-              %i.help-block.display-inline Must be present
-            .input-group{data: {bind: 'validationError: description'}}
-              %span.input-group-addon
-                %span.glyphicon.glyphicon-info-sign
-              %input.form-control{type: 'text', placeholder: 'e.g. Coffee at Dunkin Donuts', data: {bind: 'value: description, valueUpdate: "input"'}}
+          .form-group(my-input="Description" my-input-icon="info-sign")
+            %input.form-control(type="text" placeholder="e.g. Coffee at Dunkin Donuts" ng-model="modal.expense.description")
 
-          .form-group
-            %label
-              Amount
-              %i.help-block.display-inline Must be valid dollar amount
-            .input-group{data: {bind: 'validationError: amount'}}
-              %span.input-group-addon
-                %span.glyphicon.glyphicon-usd
-              %input.form-control{type: 'text', data: {bind: 'value: amount, valueUpdate: "input"'}}
+          .form-group(my-input="Amount" my-input-icon="usd")
+            %input.form-control(type="text" ng-model="modal.expense.amount")
 
-          .form-group
-            %label Comment
-            .input-group
-              %span.input-group-addon
-                %span.glyphicon.glyphicon-comment
-              %input.form-control{type: 'text', placeholder: 'e.g. Needed caffeine before meeting', data: {bind: 'value: comment, valueUpdate: "input"'}}
+          .form-group(my-input="Comment" my-input-icon="comment")
+            %input.form-control(type="text" placeholder="e.g. Needed caffeine before meeting" ng-model="modal.expense.comment")
 
         .modal-footer
-          %button.btn.btn-default{data: {dismiss: 'modal'}}
-            %span.glyphicon.glyphicon-remove
-            Close
+          %a(my-button="Close" my-button-icon="remove" data-dismiss="modal")
 
-          %button.btn.btn-success{data: {bind: 'enable: values.isValid, click: $parent.saveExpense'}}
-            %span.glyphicon.glyphicon-cloud-upload
-            Save
+          %button(my-button="Save" my-button-icon="cloud-upload" my-button-color="success")
 
-          / ko ifnot: isNew
-          %button.btn.btn-danger{data: {dismiss: 'modal', bind: 'click: $parent.deleteExpense'}}
-            %span.glyphicon.glyphicon-trash
-            Delete
-          / /ko
-
-
-:javascript
-  app.viewModels = new app.ViewModels();
-  app.viewModels.expenses = new app.ViewModels.Expenses();
-
-  ko.applyBindings(app.viewModels);
+          %a(my-button="Delete" my-button-icon="trash" my-button-color="danger" ng-hide="modal.isNew" ng-click="modal.deleteExpense(modal.index)" data-dismiss="modal")

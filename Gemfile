@@ -9,6 +9,7 @@ gem 'puma', '~> 2.8.2'
 gem 'activerecord-jdbcpostgresql-adapter'
 
 gem 'haml', '~> 4.0.5'
+gem 'slim'
 gem 'jbuilder', '~> 2.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'devise'

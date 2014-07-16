@@ -8,15 +8,11 @@ module Api
       expenses = expenses.where('description ilike ? ', "#{params[:description]}%") if params[:description].present?
       expenses = expenses.where('comment ilike ? ', "%#{params[:comment]}%") if params[:comment].present?
 
-      if params[:expensed_at]
-        expenses = expenses.where('expensed_at >= ?', params[:expensed_at][:gte]) if params[:expensed_at][:gte].present?
-        expenses = expenses.where('expensed_at <= ?', params[:expensed_at][:lte]) if params[:expensed_at][:lte].present?
-      end
+      expenses = expenses.where('expensed_at >= ?', params[:expensed_at__gte]) if params[:expensed_at__gte].present?
+      expenses = expenses.where('expensed_at <= ?', params[:expensed_at__lte]) if params[:expensed_at__lte].present?
 
-      if params[:amount]
-        expenses = expenses.where('amount >= ?', params[:amount][:gte]) if params[:amount][:gte].present?
-        expenses = expenses.where('amount <= ?', params[:amount][:lte]) if params[:amount][:lte].present?
-      end
+      expenses = expenses.where('amount >= ?', params[:amount__gte]) if params[:amount__gte].present?
+      expenses = expenses.where('amount <= ?', params[:amount__lte]) if params[:amount__lte].present?
 
       render json: {expenses: expenses}
     end
@@ -50,7 +46,7 @@ module Api
     end
 
     def destroy
-      current_user.expense_items.find(params[:id]).destroy
+      # current_user.expense_items.find(params[:id]).destroy
 
       render json: {status: :ok}
     end

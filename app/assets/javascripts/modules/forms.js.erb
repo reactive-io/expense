@@ -1,0 +1,46 @@
+/* global angular */
+
+(function() {
+  "use strict";
+
+  var mod = angular.module('myForms', []);
+
+  mod.directive('myInput', function() {
+    return {
+      restrict: 'A',
+
+      scope: true,
+      transclude: true,
+
+      templateUrl: '<%= asset_path('modules/forms/input.html') %>',
+
+      link: function ($scope, element, attrs, ctrl, transclude) {
+        $scope.attrs = {
+          label: attrs.myInput,
+          icon: attrs.myInputIcon
+        };
+
+        element.find('input[transclude]').replaceWith(transclude());
+      }
+    };
+  });
+
+  mod.directive('myButton', function() {
+    return {
+      restrict: 'A',
+
+      scope: true,
+
+      templateUrl: '<%= asset_path('modules/forms/button.html') %>',
+
+      link: function ($scope, element, attrs, ctrl, transclude) {
+        element.addClass("btn").addClass('btn-' + (attrs.myButtonColor || 'default'));
+
+        $scope.attrs = {
+          value: attrs.myButton,
+          icon: attrs.myButtonIcon
+        };
+      }
+    };
+  });
+})();
