@@ -1,4 +1,4 @@
-/* global angular,alert,confirm,$ */
+/* global angular,alert,confirm,moment,$ */
 
 (function() {
   "use strict";
@@ -64,7 +64,7 @@
 
       newExpense: function() {
         this.isNew = true;
-        this.expense = {expensed_at: (new Date()).toISOString()};
+        this.expense = {expensed_at: moment((new Date()).toISOString()).format('YYYY-MM-DD HH:mm:ss')};
       }.bind($scope.modal),
 
       editExpense: function(expense, index) {

@@ -3,7 +3,7 @@
 (function() {
   'use strict';
 
-  angular.module('ngRails', [] ).config(['$httpProvider', function($httpProvider) {
+  angular.module('ngRails', []).config(['$httpProvider', function($httpProvider) {
     var getToken = function() {
       // Rails 3+
       var el = document.querySelector('meta[name="csrf-token"]');

@@ -1,35 +1,35 @@
 %div(ng-controller="expensesController" ng-init="table.filterExpenses()")
   %form.row(ng-submit="table.filterExpenses()")
     .col.col-md-3
-      .form-group(my-input="ID" my-input-icon="th-list")
+      .form-group.my-input(data-label="ID" data-icon="th-list")
         %input.form-control(type="text" ng-model="filters.id")
 
       .form-group
         %label &nbsp;
         .input-group
-          %button(my-button="Filter List" my-button-icon="filter" my-button-color="primary" style="margin-right: 10px;")
+          %button.my-button(data-label="Filter List" data-icon="filter" data-color="primary" style="margin-right: 10px;")
 
-          %a(my-button="New Expense" my-button-icon="plus" my-button-color="success" ng-click="table.newExpense()" data-toggle="modal" data-target="#expense-modal")
+          %a.my-button(data-label="New Expense" data-icon="plus" data-color="success" ng-click="table.newExpense()" data-toggle="modal" data-target="#expense-modal")
 
     .col.col-md-3
-      .form-group(my-input="Description" my-input-icon="info-sign")
+      .form-group.my-input(data-label="Description" data-icon="info-sign")
         %input.form-control(type="text" ng-model="filters.description")
 
-      .form-group(my-input="Comment" my-input-icon="comment")
+      .form-group.my-input(data-label="Comment" data-icon="comment")
         %input.form-control(type="text" ng-model="filters.comment")
 
     .col.col-md-3
-      .form-group(my-input="Expensed At From" my-input-icon="calendar")
-        %input.form-control(type="text" ng-model="filters.expensed_at__gte")
+      .form-group.my-input(data-label="Expensed At From" data-icon="calendar")
+        %input.form-control.my-datetime-picker(type="text" ng-model="filters.expensed_at__gte")
 
-      .form-group(my-input="Amount From" my-input-icon="usd")
+      .form-group.my-input(data-label="Amount From" data-icon="usd")
         %input.form-control(type="text" ng-model="filters.amount__gte")
 
     .col.col-md-3
-      .form-group(my-input="Expensed At Until" my-input-icon="calendar")
-        %input.form-control(type="text" ng-model="filters.expensed_at__lte")
+      .form-group.my-input(data-label="Expensed At Until" data-icon="calendar")
+        %input.form-control.my-datetime-picker(type="text" ng-model="filters.expensed_at__lte")
 
-      .form-group(my-input="Amount Until" my-input-icon="usd")
+      .form-group.my-input(data-label="Amount Until" data-icon="usd")
         %input.form-control(type="text" ng-model="filters.amount__lte")
 
   .row.border-bottom
@@ -62,21 +62,21 @@
           %h4.modal-title Expense
 
         .modal-body
-          .form-group(my-input="Expensed" my-input-icon="calendar")
-            %input.form-control(type="text" ng-model="modal.expense.expensed_at")
+          .form-group.my-input(data-label="Expensed" data-icon="calendar")
+            %input.form-control.my-datetime-picker(type="text" ng-model="modal.expense.expensed_at")
 
-          .form-group(my-input="Description" my-input-icon="info-sign")
+          .form-group.my-input(data-label="Description" data-icon="info-sign")
             %input.form-control(type="text" placeholder="e.g. Coffee at Dunkin Donuts" ng-model="modal.expense.description")
 
-          .form-group(my-input="Amount" my-input-icon="usd")
+          .form-group.my-input(data-label="Amount" data-icon="usd")
             %input.form-control(type="text" ng-model="modal.expense.amount")
 
-          .form-group(my-input="Comment" my-input-icon="comment")
+          .form-group.my-input(data-label="Comment" data-icon="comment")
             %input.form-control(type="text" placeholder="e.g. Needed caffeine before meeting" ng-model="modal.expense.comment")
 
         .modal-footer
-          %a(my-button="Close" my-button-icon="remove" data-dismiss="modal")
+          %a.my-button(data-label="Close" data-icon="remove" data-dismiss="modal")
 
-          %button(my-button="Save" my-button-icon="cloud-upload" my-button-color="success")
+          %button.my-button(data-label="Save" data-icon="cloud-upload" data-color="success")
 
-          %a(my-button="Delete" my-button-icon="trash" my-button-color="danger" ng-hide="modal.isNew" ng-click="modal.deleteExpense(modal.index)" data-dismiss="modal")
+          %a.my-button(data-label="Delete" data-icon="trash" data-color="danger" ng-hide="modal.isNew" ng-click="modal.deleteExpense(modal.index)" data-dismiss="modal")

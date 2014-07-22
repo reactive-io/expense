@@ -46,7 +46,7 @@ module Api
     end
 
     def destroy
-      # current_user.expense_items.find(params[:id]).destroy
+      current_user.expense_items.find(params[:id]).destroy
 
       render json: {status: :ok}
     end
