@@ -4,6 +4,8 @@ class WebController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    render layout: false
+    @title = 'Expense'
+
+    render file: 'web/layouts/application'
   end
 end

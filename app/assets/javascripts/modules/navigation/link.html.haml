@@ -1,0 +1,4 @@
+%li(ng-class="{ active: attrs.isActive() }")
+  %a{href: '#{{attrs.href}}'}
+    %span.glyphicon(class="glyphicon-{{attrs.icon}}")
+    %span(ng-bind="attrs.label")

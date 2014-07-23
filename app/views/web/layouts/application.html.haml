@@ -1,7 +1,7 @@
 !!!
 %html(ng-app="application")
   %head
-    %title Expense
+    %title= @title
 
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
@@ -21,10 +21,13 @@
           .navbar-header
             %a.navbar-brand(href=root_path)
               %span.glyphicon.glyphicon-tasks
-              Expense
+              = @title
 
           .collapse.navbar-collapse
             %ul.nav.navbar-nav
+              - if user_signed_in?
+                %my-navigation-link(data-label="Expenses" data-icon="usd" data-href="/expenses")
+                %my-navigation-link(data-label="Tests" data-icon="question-sign" data-href="/tests")
 
             %ul.nav.navbar-nav.navbar-right
               - if user_signed_in?
@@ -46,8 +49,10 @@
                     %span.glyphicon.glyphicon-log-in
                     Sign In
 
-      -#= yield
-      %div(ng-view)
+      - if user_signed_in?
+        %div(ng-view)
+      - else
+        = yield
 
     - if user_signed_in?
       #api-token-modal.modal.fade(tabindex="-1" role="dialog")

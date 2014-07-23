@@ -1,0 +1,26 @@
+/* global angular */
+
+(function() {
+  "use strict";
+
+  var mod = angular.module('myNavigation', []).directive('myNavigationLink',
+    ['$location', function($location) {
+
+    return {
+      restrict: 'E',
+
+      scope: true,
+      replace: true,
+
+      templateUrl: '<%= asset_path('modules/navigation/link.html') %>',
+
+      link: function($scope, element, attrs) {
+        $scope.attrs = attrs;
+
+        $scope.attrs.isActive = function() {
+          return attrs.href === $location.path();
+        };
+      }
+    }
+  }]);
+})();

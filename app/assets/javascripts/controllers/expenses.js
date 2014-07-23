@@ -3,7 +3,9 @@
 (function() {
   "use strict";
 
-  angular.module('controllers', []).controller('expensesController', ['$scope', '$http', function($scope, $http) {
+  angular.module('controllers').controller('ExpensesController',
+    ['$scope', '$http', function($scope, $http) {
+
     $scope.modal = {
       isNew: null,
 
