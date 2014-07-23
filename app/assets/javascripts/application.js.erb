@@ -13,7 +13,6 @@
 //= require ./modules/navigation
 //= require ./modules/forms
 
-//= require ./controllers/navigation
 //= require ./controllers/expenses
 //= require ./controllers/tests
 
@@ -32,6 +31,10 @@
       }).
       when('/tests', {
         templateUrl: '<%= asset_path('tests/index.html') %>',
+        controller: 'TestsController'
+      }).
+      when('/tests/:id', {
+        templateUrl: '<%= asset_path('tests/show.html') %>',
         controller: 'TestsController'
       }).
       otherwise({

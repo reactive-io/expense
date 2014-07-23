@@ -4,7 +4,7 @@
   "use strict";
 
   angular.module('controllers').controller('ExpensesController',
-    ['$scope', '$http', function($scope, $http) {
+  ['$scope', '$http', function($scope, $http) {
 
     $scope.modal = {
       isNew: null,
