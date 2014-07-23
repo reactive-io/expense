@@ -1,6 +1,7 @@
-%label(ng-bind="attrs.label")
-.input-group
-  %span.input-group-addon
-    %span.glyphicon(class="glyphicon-{{attrs.icon}}")
-  %input.form-control(transclude)
+.form-group
+  %label(ng-bind="attrs.label" for="input-{{$id}}")
+  .input-group
+    %span.input-group-addon
+      %span.glyphicon(class="glyphicon-{{attrs.icon}}")
+    %input(transclude)
 

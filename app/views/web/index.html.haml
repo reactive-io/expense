@@ -19,7 +19,7 @@
       %nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
         .container-fluid
           .navbar-header
-            %a.navbar-brand(href=web_expenses_path)
+            %a.navbar-brand(href=root_path)
               %span.glyphicon.glyphicon-tasks
               Expense
 
@@ -29,7 +29,7 @@
             %ul.nav.navbar-nav.navbar-right
               - if user_signed_in?
                 %li
-                  %a(href="#" data-toggle="modal" data-target="#api-token-modal")
+                  %a(href="" data-toggle="modal" data-target="#api-token-modal")
                     %span.glyphicon.glyphicon-cog
                     Get API Token
                 %li
@@ -46,7 +46,8 @@
                     %span.glyphicon.glyphicon-log-in
                     Sign In
 
-      = yield
+      -#= yield
+      %div(ng-view)
 
     - if user_signed_in?
       #api-token-modal.modal.fade(tabindex="-1" role="dialog")
