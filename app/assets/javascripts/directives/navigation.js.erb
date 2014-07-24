@@ -3,7 +3,7 @@
 (function() {
   "use strict";
 
-  var mod = angular.module('myNavigation', []).directive('myNavigationLink',
+  var mod = angular.module('directives').directive('myNavigationLink',
   ['$location', function($location) {
 
     return {
@@ -12,7 +12,7 @@
       scope: true,
       replace: true,
 
-      templateUrl: '<%= asset_path('modules/navigation/link.html') %>',
+      templateUrl: '<%= asset_path('directives/navigation/link.html') %>',
 
       link: function($scope, element, attrs) {
         $scope.attrs = attrs;

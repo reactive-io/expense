@@ -6,12 +6,12 @@
 //= require angular-1.3.0-beta.min
 //= require angular-route-1.3.0-beta.min
 
-//= require ./configs/ngRails
-//= require ./configs/datetimepicker
 //= require ./configs/angular
+//= require ./configs/rails
+//= require ./configs/datetimepicker
 
-//= require ./modules/navigation
-//= require ./modules/forms
+//= require ./directives/navigation
+//= require ./directives/form
 
 //= require ./controllers/expenses
 //= require ./controllers/tests
@@ -21,7 +21,7 @@
 (function() {
   "use strict";
 
-  var app = angular.module('application', ['ngRails', 'ngRoute', 'myNavigation', 'myForms', 'controllers']);
+  var app = angular.module('application', ['ngRoute', 'rails', 'resources', 'directives', 'controllers']);
 
   app.config(['$routeProvider', function($routeProvider) {
     $routeProvider.

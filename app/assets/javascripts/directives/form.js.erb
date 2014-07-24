@@ -3,9 +3,9 @@
 (function() {
   "use strict";
 
-  var mod = angular.module('myForms', []);
+  var mod = angular.module('directives');
 
-  mod.directive('myInput', function() {
+  mod.directive('myFormInput', function() {
     return {
       restrict: 'E',
 
@@ -13,7 +13,7 @@
       replace: true,
       transclude: true,
 
-      templateUrl: '<%= asset_path('modules/forms/input.html') %>',
+      templateUrl: '<%= asset_path('directives/form/input.html') %>',
 
       link: function ($scope, element, attrs, ctrl, transclude) {
         $scope.attrs = {
@@ -28,13 +28,13 @@
     };
   });
 
-  mod.directive('myButton', function() {
+  mod.directive('myFormButton', function() {
     return {
       restrict: 'C',
 
       scope: true,
 
-      templateUrl: '<%= asset_path('modules/forms/button.html') %>',
+      templateUrl: '<%= asset_path('directives/form/button.html') %>',
 
       link: function ($scope, element, attrs, ctrl, transclude) {
         element.addClass("btn").addClass('btn-' + (attrs.color || 'default'));
