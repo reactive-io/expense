@@ -20,17 +20,17 @@
 
     .col.col-md-3
       %my-input(data-label="Expensed At From" data-icon="calendar")
-        %input.my-datetime-picker(type="text" ng-model="filters.expensed_at__gte")
+        %input.my-datetime-picker(type="text" ng-model="filters.expensed_at.gteq")
 
       %my-input(data-label="Amount From" data-icon="usd")
-        %input(type="text" ng-model="filters.amount__gte")
+        %input(type="text" ng-model="filters.amount.gteq")
 
     .col.col-md-3
       %my-input(data-label="Expensed At Until" data-icon="calendar")
-        %input.my-datetime-picker(type="text" ng-model="filters.expensed_at__lte")
+        %input.my-datetime-picker(type="text" ng-model="filters.expensed_at.lteq")
 
       %my-input(data-label="Amount Until" data-icon="usd")
-        %input(type="text" ng-model="filters.amount__lte")
+        %input(type="text" ng-model="filters.amount.lteq")
 
   .row.border-bottom
     .col.col-md-12

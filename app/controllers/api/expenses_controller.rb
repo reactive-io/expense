@@ -5,7 +5,7 @@ module Api
 
       expenses = expenses.where(id: params[:id]) if params[:id].present?
 
-      expenses = expenses.where('description ilike ? ', "#{params[:description]}%") if params[:description].present?
+      expenses = expenses.where('description ilike ? ', "%#{params[:description]}%") if params[:description].present?
       expenses = expenses.where('comment ilike ? ', "%#{params[:comment]}%") if params[:comment].present?
 
       expenses = expenses.where('expensed_at >= ?', params[:expensed_at__gte]) if params[:expensed_at__gte].present?
@@ -15,6 +15,8 @@ module Api
       expenses = expenses.where('amount <= ?', params[:amount__lte]) if params[:amount__lte].present?
 
       render json: {expenses: expenses}
+    rescue
+      head :bad_request
     end
 
     def create
