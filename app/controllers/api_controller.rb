@@ -5,7 +5,7 @@ class ApiController < ApplicationController
   private
 
   def authenticate_user_with_api_token!
-    user = User.find_by_api_token(request.headers['X-ApiToken'])
+    user = User.find_by_api_token(request.headers['X-API-TOKEN'])
 
     if user
       sign_in user, store: false

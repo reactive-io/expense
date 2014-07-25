@@ -5,4 +5,14 @@ class ExpenseItem < ActiveRecord::Base
 
   validates :expensed_at, :description, :amount, :user_id, presence: true
   validates :amount, numericality: true
+
+  class << self
+    def ransackable_attributes(auth_object = nil)
+      %w[id amount expensed_at description comment]
+    end
+
+    def ransortable_attributes(auth_object = nil)
+      %w[id amount expensed_at]
+    end
+  end
 end

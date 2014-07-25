@@ -1,4 +1,4 @@
-/* global angular,alert,confirm,moment,$ */
+/* global angular,alert,confirm,moment,$,_ */
 
 (function() {
   "use strict";
@@ -7,41 +7,42 @@
   ['$scope', '$http', function($scope, $http) {
 
     $scope.modal = {
-      isNew: null,
-
       index: null,
 
-      expense: {
-      },
+      expense: {},
 
-      saveExpense: function() {
-        var http;
+      saveExpense: function(id) {
+        var save;
 
-        if (this.isNew) {
-          http = $http.post('/api/expenses', {expense: this.expense}).success(function(data) {
-            $scope.table.expenses.push(data.expense);
-          }.bind(this));
+        if (id) {
+          save = $http.patch('/api/expenses/' + id, {expense: $scope.modal.expense});
+
+          save.success(function(expense) {
+            $scope.table.expenses[$scope.modal.index] = expense;
+          });
         }
         else {
-          http = $http.patch('/api/expenses/' + this.expense.id, {expense: this.expense}).success(function(data) {
-            $scope.table.expenses[this.index] = data.expense;
-          }.bind(this));
+          save = $http.post('/api/expenses', {expense: $scope.modal.expense});
+
+          save.success(function(expense) {
+            $scope.table.expenses.push(expense);
+          });
         }
 
-        http.success(function() {
+        save.success(function() {
           $("#expense-modal").modal("hide");
         });
 
-        http.error(function() {
+        save.error(function() {
           alert("Seems some values are not correct, please try again.");
         });
       },
 
-      deleteExpense: function(index) {
+      deleteExpense: function(id, index) {
         if (confirm('Are you sure?')) {
-          $http.delete('/api/expenses/' + this.expense.id).success(function() {
-            this.splice(index, 1);
-          }.bind($scope.table.expenses));
+          $http.delete('/api/expenses/' + id).success(function() {
+            $scope.table.expenses.splice(index, 1);
+          });
         }
       }
     };
@@ -53,13 +54,13 @@
       expenses: [],
 
       filterExpenses: function() {
-        var http = $http.get('/api/expenses', {params: $scope.filters});
+        var search = $http.post('/api/expenses/search', {q: _.clean($scope.filters)});
 
-        http.success(function(data) {
-          this.expenses = data.expenses;
-        }.bind(this));
+        search.success(function(data) {
+          $scope.table.expenses = data.results;
+        });
 
-        http.error(function() {
+        search.error(function() {
           alert('Seems some filters are not valid, please try again.');
         });
       },

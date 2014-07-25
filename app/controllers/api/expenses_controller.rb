@@ -1,20 +1,9 @@
 module Api
   class ExpensesController < ApiController
-    def index
-      expenses = current_user.expense_items
+    def search
+      expenses = current_user.expense_items.search(params[:q])
 
-      expenses = expenses.where(id: params[:id]) if params[:id].present?
-
-      expenses = expenses.where('description ilike ? ', "%#{params[:description]}%") if params[:description].present?
-      expenses = expenses.where('comment ilike ? ', "%#{params[:comment]}%") if params[:comment].present?
-
-      expenses = expenses.where('expensed_at >= ?', params[:expensed_at__gte]) if params[:expensed_at__gte].present?
-      expenses = expenses.where('expensed_at <= ?', params[:expensed_at__lte]) if params[:expensed_at__lte].present?
-
-      expenses = expenses.where('amount >= ?', params[:amount__gte]) if params[:amount__gte].present?
-      expenses = expenses.where('amount <= ?', params[:amount__lte]) if params[:amount__lte].present?
-
-      render json: {expenses: expenses}
+      render json: {results: expenses.result, pages: {current: 1, total: 100}}
     rescue
       head :bad_request
     end
@@ -27,7 +16,7 @@ module Api
       expense = current_user.expense_items.build(values)
 
       if expense.save
-        render json: {expense: expense}
+        render json: expense
       else
         render json: {errors: expense.errors}, status: :unprocessable_entity
       end
@@ -41,7 +30,7 @@ module Api
       expense = current_user.expense_items.find(params[:id])
 
       if expense.update_attributes(values)
-        render json: {expense: expense}
+        render json: expense
       else
         render json: {errors: expense.errors}, status: :unprocessable_entity
       end

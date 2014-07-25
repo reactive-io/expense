@@ -2,7 +2,7 @@
   %form.row(ng-submit="table.filterExpenses()")
     .col.col-md-3
       %my-form-input(data-label="ID" data-icon="th-list")
-        %input(type="text" ng-model="filters.id")
+        %input(type="text" ng-model="filters.id_eq")
 
       .form-group
         %label &nbsp;
@@ -13,24 +13,24 @@
 
     .col.col-md-3
       %my-form-input(data-label="Description" data-icon="info-sign")
-        %input(type="text" ng-model="filters.description")
+        %input(type="text" ng-model="filters.description_cont")
 
       %my-form-input(data-label="Comment" data-icon="comment")
-        %input(type="text" ng-model="filters.comment")
+        %input(type="text" ng-model="filters.comment_cont")
 
     .col.col-md-3
       %my-form-input(data-label="Expensed At From" data-icon="calendar")
-        %input.my-datetime-picker(type="text" ng-model="filters.expensed_at.gteq")
+        %input.my-datetime-picker(type="text" ng-model="filters.expensed_at_gteq")
 
       %my-form-input(data-label="Amount From" data-icon="usd")
-        %input(type="text" ng-model="filters.amount.gteq")
+        %input(type="text" ng-model="filters.amount_gteq")
 
     .col.col-md-3
       %my-form-input(data-label="Expensed At Until" data-icon="calendar")
-        %input.my-datetime-picker(type="text" ng-model="filters.expensed_at.lteq")
+        %input.my-datetime-picker(type="text" ng-model="filters.expensed_at_lteq")
 
       %my-form-input(data-label="Amount Until" data-icon="usd")
-        %input(type="text" ng-model="filters.amount.lteq")
+        %input(type="text" ng-model="filters.amount_lteq")
 
   .row.border-bottom
     .col.col-md-12
@@ -56,7 +56,7 @@
 
   #expense-modal.modal.fade(tabindex="-1" role="dialog")
     .modal-dialog
-      %form.modal-content(ng-submit="modal.saveExpense()")
+      %form.modal-content(ng-submit="modal.saveExpense(modal.expense.id)")
         .modal-header
           %a.close(data-dismiss="modal") &times;
           %h4.modal-title Expense
@@ -79,4 +79,4 @@
 
           %button.my-form-button(data-label="Save" data-icon="cloud-upload" data-color="success")
 
-          %a.my-form-button(data-label="Delete" data-icon="trash" data-color="danger" ng-hide="modal.isNew" ng-click="modal.deleteExpense(modal.index)" data-dismiss="modal")
+          %a.my-form-button(data-label="Delete" data-icon="trash" data-color="danger" ng-show="modal.expense.id" ng-click="modal.deleteExpense(modal.expense.id, modal.index)" data-dismiss="modal")
