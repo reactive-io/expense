@@ -13,14 +13,23 @@
             return _.isNull(v) || _.isUndefined(v) || v === "";
           }).map(cleanValue);
         }
+
         else if (_.isPlainObject(value)) {
           _.each(value, function(v, k) {
-            if (_.isNull(v) || _.isUndefined(v) || v === "") {
+            if (_.isArray(v)) {
+              value[k] = cleanValue(v);
+            }
+            else if (_.isPlainObject(v)) {
+              cleanValue(v);
+            }
+            else if (_.isNull(v) || _.isUndefined(v) || v === "") {
               delete value[k];
             }
           });
+
           return value;
         }
+
         else {
           return value;
         }

@@ -47,17 +47,12 @@
       }
     };
 
-    $scope.sorting = {
-      column: 'id',
-      direction: 'asc'
-    };
-
     $scope.filters = {
+      s: [{
+        name: 'id',
+        dir: 'asc'
+      }]
     };
-
-    $scope.$watch('[sorting.column, sorting.direction]', function(newValue) {
-      $scope.filters.s = [newValue[0], newValue[1]].join(" ");
-    }, true);
 
     $scope.table = {
       loading: false,

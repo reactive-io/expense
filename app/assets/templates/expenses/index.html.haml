@@ -5,13 +5,13 @@
         %input(type="text" ng-model="filters.id_eq")
 
       %my-form-select(data-label="Sort By")
-        %select(ng-model="sorting.column")
+        %select(ng-model="filters.s[0].name")
           %option(value="id") ID
           %option(value="amount") Amount
           %option(value="expensed_at") Expensed At
 
       %my-form-select(data-label="Direction")
-        %select(ng-model="sorting.direction")
+        %select(ng-model="filters.s[0].dir")
           %option(value="asc") Ascending
           %option(value="desc") Descending
 
@@ -76,7 +76,7 @@
           %my-form-input(data-label="Expensed" data-icon="calendar")
             %input.my-datetime-picker(type="text" ng-model="modal.expense.expensed_at")
 
-          %my-form-input(data-label="Description" data-icon="info-sign")
+          %my-form-input(data-label="Description" data-icon="info")
             %input(type="text" placeholder="e.g. Coffee at Dunkin Donuts" ng-model="modal.expense.description")
 
           %my-form-input(data-label="Amount" data-icon="usd")
@@ -86,8 +86,8 @@
             %input(type="text" placeholder="e.g. Needed caffeine before meeting" ng-model="modal.expense.comment")
 
         .modal-footer
-          %a.my-form-button(data-label="Close" data-icon="remove" data-dismiss="modal")
+          %a.my-form-button(data-label="Close" data-icon="times" data-dismiss="modal")
 
           %button.my-form-button(data-label="Save" data-icon="cloud-upload" data-color="success")
 
-          %a.my-form-button(data-label="Delete" data-icon="trash" data-color="danger" ng-show="modal.expense.id" ng-click="modal.deleteExpense(modal.expense.id, modal.index)" data-dismiss="modal")
+          %a.my-form-button(data-label="Delete" data-icon="trash-o" data-color="danger" ng-show="modal.expense.id" data-dismiss="modal" ng-click="modal.deleteExpense(modal.expense.id, modal.index)")
