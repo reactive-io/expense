@@ -28,6 +28,28 @@
     };
   });
 
+  mod.directive('myFormSelect', function() {
+    return {
+      restrict: 'E',
+
+      scope: true,
+      replace: true,
+      transclude: true,
+
+      templateUrl: '<%= asset_path('directives/form/select.html') %>',
+
+      link: function ($scope, element, attrs, _ctrl, transclude) {
+        $scope.attrs = {
+          label: attrs.label
+        };
+
+        element.find('input[transclude]').replaceWith(
+          transclude().attr('id', 'input-' + $scope.$id).addClass('form-control')
+        );
+      }
+    };
+  });
+
   mod.directive('myFormButton', function() {
     return {
       restrict: 'C',
@@ -36,13 +58,42 @@
 
       templateUrl: '<%= asset_path('directives/form/button.html') %>',
 
-      link: function ($scope, element, attrs, ctrl, transclude) {
+      link: function ($scope, element, attrs) {
         element.addClass("btn").addClass('btn-' + (attrs.color || 'default'));
 
         $scope.attrs = {
           label: attrs.label,
           icon: attrs.icon
         };
+      }
+    };
+  });
+
+  mod.directive('myFormLoading', function() {
+    return {
+      restrict: 'A',
+
+      link: function ($scope, element, attrs, ctrl, transclude) {
+        var icon = element.find('span.fa');
+
+        $scope.$watch(attrs.myFormLoading, function(newValue) {
+          if (newValue) {
+            element.prop('disabled', true);
+
+            icon.removeClass('fa-' + attrs.icon);
+
+            icon.addClass('fa-spin');
+            icon.addClass('fa-refresh')
+          }
+          else {
+            element.prop('disabled', false);
+
+            icon.removeClass('fa-spin');
+            icon.removeClass('fa-refresh')
+
+            icon.addClass('fa-' + attrs.icon);
+          }
+        })
       }
     };
   });

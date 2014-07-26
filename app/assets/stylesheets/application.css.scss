@@ -1,3 +1,5 @@
+//= require font-awesome/font-awesome
+
 @import "bootstrap";
 @import "bootstrap-sprockets";
 @import 'bootstrap-datetimepicker';
@@ -15,6 +17,10 @@ body {
 
 .display-inline {
   display: inline;
+}
+
+.full-width {
+  width: 100%;
 }
 
 .border-bottom {

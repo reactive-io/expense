@@ -4,33 +4,44 @@
       %my-form-input(data-label="ID" data-icon="th-list")
         %input(type="text" ng-model="filters.id_eq")
 
-      .form-group
-        %label &nbsp;
-        .input-group
-          %button.my-form-button(data-label="Filter List" data-icon="filter" data-color="primary" style="margin-right: 10px;")
+      %my-form-select(data-label="Sort By")
+        %select(ng-model="sorting.column")
+          %option(value="id") ID
+          %option(value="amount") Amount
+          %option(value="expensed_at") Expensed At
 
-          %a.my-form-button(data-label="New Expense" data-icon="plus" data-color="success" data-toggle="modal" data-target="#expense-modal" ng-click="table.newExpense()")
+      %my-form-select(data-label="Direction")
+        %select(ng-model="sorting.direction")
+          %option(value="asc") Ascending
+          %option(value="desc") Descending
 
     .col.col-md-3
-      %my-form-input(data-label="Description" data-icon="info-sign")
+      %my-form-input(data-label="Description" data-icon="info")
         %input(type="text" ng-model="filters.description_cont")
 
       %my-form-input(data-label="Comment" data-icon="comment")
         %input(type="text" ng-model="filters.comment_cont")
 
     .col.col-md-3
-      %my-form-input(data-label="Expensed At From" data-icon="calendar")
-        %input.my-datetime-picker(type="text" ng-model="filters.expensed_at_gteq")
-
       %my-form-input(data-label="Amount From" data-icon="usd")
         %input(type="text" ng-model="filters.amount_gteq")
 
+      %my-form-input(data-label="Amount Until" data-icon="usd")
+        %input(type="text" ng-model="filters.amount_lteq")
+
     .col.col-md-3
+      %my-form-input(data-label="Expensed At From" data-icon="calendar")
+        %input.my-datetime-picker(type="text" ng-model="filters.expensed_at_gteq")
+
       %my-form-input(data-label="Expensed At Until" data-icon="calendar")
         %input.my-datetime-picker(type="text" ng-model="filters.expensed_at_lteq")
 
-      %my-form-input(data-label="Amount Until" data-icon="usd")
-        %input(type="text" ng-model="filters.amount_lteq")
+      .form-group
+        %label &nbsp;
+        .input-group
+          %button.my-form-button(data-label="Filter List" data-icon="filter" data-color="primary" style="margin-right: 10px;" my-form-loading="table.loading")
+
+          %a.my-form-button(data-label="New Expense" data-icon="plus" data-color="success" data-toggle="modal" data-target="#expense-modal" ng-click="table.newExpense()")
 
   .row.border-bottom
     .col.col-md-12

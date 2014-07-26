@@ -47,16 +47,30 @@
       }
     };
 
+    $scope.sorting = {
+      column: 'id',
+      direction: 'asc'
+    };
+
     $scope.filters = {
     };
 
+    $scope.$watch('[sorting.column, sorting.direction]', function(newValue) {
+      $scope.filters.s = [newValue[0], newValue[1]].join(" ");
+    }, true);
+
     $scope.table = {
+      loading: false,
+
       expenses: [],
 
       filterExpenses: function() {
+        $scope.table.loading = true;
+
         var search = $http.post('/api/expenses/search', {q: _.clean($scope.filters)});
 
         search.success(function(data) {
+          $scope.table.loading = false;
           $scope.table.expenses = data.results;
         });
 
@@ -67,7 +81,7 @@
 
       newExpense: function() {
         this.isNew = true;
-        this.expense = {expensed_at: moment((new Date()).toISOString()).format('YYYY-MM-DD HH:mm:ss')};
+        this.expense = {expensed_at: moment().format('YYYY-MM-DD HH:mm')};
       }.bind($scope.modal),
 
       editExpense: function(expense, index) {
