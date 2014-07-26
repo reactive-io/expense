@@ -1,11 +1,7 @@
 module Api
   class ExpensesController < ApiController
     def search
-      expenses = current_user.expense_items.search(params[:q])
-
-      render json: {results: expenses.result, pages: {current: 1, total: 100}}
-    rescue
-      head :bad_request
+      @results, @counts = search_results(current_user.expense_items.search(params[:q]))
     end
 
     def create

@@ -52,7 +52,7 @@
             %td(ng-bind="expense.expensed_at | date: 'yyyy-MM-dd h:mm a'")
             %td(ng-bind="expense.description")
             %td(ng-bind="expense.comment")
-            %td(ng-bind="expense.amount")
+            %td(ng-bind="expense.amount | currency")
 
   #expense-modal.modal.fade(tabindex="-1" role="dialog")
     .modal-dialog

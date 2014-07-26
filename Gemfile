@@ -12,8 +12,10 @@ gem 'haml', '~> 4.0.5'
 gem 'jbuilder', '~> 2.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
+
 gem 'squeel'
 gem 'ransack'
+gem 'kaminari'
 
 gem 'therubyrhino'
 gem 'uglifier'
