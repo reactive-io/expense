@@ -1,7 +1,9 @@
 module Api
   class ExpensesController < ApiController
     def search
-      @results, @counts = search_results(current_user.expense_items.search(params[:q]))
+      expenses = current_user.expense_items
+
+      @results, @counts = search_results(expenses.search(params[:q]))
     end
 
     def create

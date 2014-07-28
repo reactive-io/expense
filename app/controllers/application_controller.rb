@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception, unless: lambda { request.headers['X-API-TOKEN'].present? }
+  around_filter :get_time_zone, :if => lambda { request.headers['X-TIME-ZONE'] }
+
+  def get_time_zone(&block)
+    Time.use_zone(request.headers['X-TIME-ZONE'], &block)
+  end
 end

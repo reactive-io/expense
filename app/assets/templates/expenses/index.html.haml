@@ -2,39 +2,39 @@
   %form.row(ng-submit="table.filterExpenses()")
     .col.col-md-3
       %my-form-input(data-label="ID" data-icon="th-list")
-        %input(type="text" ng-model="filters.id_eq")
+        %input(type="text" ng-model="q.id_eq")
 
       %my-form-select(data-label="Sort By")
-        %select(ng-model="filters.s[0].name")
+        %select(ng-model="q.s[0].name")
           %option(value="id") ID
           %option(value="amount") Amount
           %option(value="expensed_at") Expensed At
 
       %my-form-select(data-label="Direction")
-        %select(ng-model="filters.s[0].dir")
+        %select(ng-model="q.s[0].dir")
           %option(value="asc") Ascending
           %option(value="desc") Descending
 
     .col.col-md-3
       %my-form-input(data-label="Description" data-icon="info")
-        %input(type="text" ng-model="filters.description_cont")
+        %input(type="text" ng-model="q.description_cont")
 
       %my-form-input(data-label="Comment" data-icon="comment")
-        %input(type="text" ng-model="filters.comment_cont")
+        %input(type="text" ng-model="q.comment_cont")
 
     .col.col-md-3
       %my-form-input(data-label="Amount From" data-icon="usd")
-        %input(type="text" ng-model="filters.amount_gteq")
+        %input(type="text" ng-model="q.amount_gteq")
 
       %my-form-input(data-label="Amount Until" data-icon="usd")
-        %input(type="text" ng-model="filters.amount_lteq")
+        %input(type="text" ng-model="q.amount_lteq")
 
     .col.col-md-3
       %my-form-input(data-label="Expensed At From" data-icon="calendar")
-        %input.my-datetime-picker(type="text" ng-model="filters.expensed_at_gteq")
+        %input.my-datetime-picker(type="text" ng-model="q.expensed_at_gteq")
 
       %my-form-input(data-label="Expensed At Until" data-icon="calendar")
-        %input.my-datetime-picker(type="text" ng-model="filters.expensed_at_lteq")
+        %input.my-datetime-picker(type="text" ng-model="q.expensed_at_lteq")
 
       .form-group
         %label &nbsp;

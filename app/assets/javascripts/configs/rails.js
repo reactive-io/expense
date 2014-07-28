@@ -1,4 +1,4 @@
-/* global angular,$ */
+/* global angular,jstz,$ */
 
 (function() {
   'use strict';
@@ -6,7 +6,7 @@
   var mod = angular.module('rails');
 
   mod.config(['$httpProvider', function($httpProvider) {
-    var getToken = function() {
+    var getCSRFToken = function() {
       // Rails 3+
       var el = document.querySelector('meta[name="csrf-token"]');
       if (el) {
@@ -20,18 +20,19 @@
       }
       return el;
     },
-    updateToken = function() {
-      var headers = $httpProvider.defaults.headers.common, token = getToken();
+    updateHeaders = function() {
+      var headers = $httpProvider.defaults.headers.common, token = getCSRFToken();
       if (token) {
-        headers['X-CSRF-TOKEN'] = getToken;
+        headers['X-TIME-ZONE'] = jstz.determine().name();
+        headers['X-CSRF-TOKEN'] = getCSRFToken;
         headers['X-Requested-With'] = 'XMLHttpRequest';
       }
     };
 
-    updateToken();
+    updateHeaders();
 
     if (window.Turbolinks) {
-      $(document).bind('page:change', updateToken);
+      $(document).bind('page:change', updateHeaders);
     }
   }]);
 })();

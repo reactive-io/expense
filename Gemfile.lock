@@ -51,7 +51,6 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.2.1)
-    ffi (1.9.3)
     ffi (1.9.3-java)
     haml (4.0.5)
       tilt

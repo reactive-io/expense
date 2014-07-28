@@ -1,3 +1,5 @@
+ENV['TZ'] = 'UTC' # Set Ruby TimeZone to UTC
+
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'

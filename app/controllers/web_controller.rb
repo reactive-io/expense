@@ -1,7 +1,9 @@
 class WebController < ApplicationController
-  layout 'web/layouts/application'
+  protect_from_forgery with: :exception
 
   before_action :authenticate_user!
+
+  layout 'web/layouts/application'
 
   def index
     @title = 'Expense'
