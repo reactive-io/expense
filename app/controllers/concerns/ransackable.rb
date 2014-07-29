@@ -8,13 +8,14 @@ module Ransackable
   end
 
   class RansackQuery
-    attr_accessor :ransack, :relation
+    attr_accessor :ransack, :dataset, :relation
     attr_reader   :result, :counts, :facets, :ranges
 
     def initialize(params, relation, options = {})
       @params        = params.clone
       @relation      = relation
       @ransack       = @relation.ransack(@params[:q], options)
+      @dataset       = @ransack.result
       @ransack.sorts = @params[:s] if @params[:s]
     end
 
@@ -30,7 +31,7 @@ module Ransackable
     private
 
     def process_result
-      @result = @ransack.result.page(page_num).per(page_per).all
+      @result = @dataset.page(page_num).per(page_per).all
     end
 
     def process_counts
