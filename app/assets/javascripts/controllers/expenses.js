@@ -47,7 +47,8 @@
       }
     };
 
-    $scope.q = {
+    $scope.filters = {
+      q: {},
       s: [{
         name: 'id',
         dir: 'asc'
@@ -62,11 +63,11 @@
       filterExpenses: function() {
         $scope.table.loading = true;
 
-        var search = $http.post('/api/expenses/search', {q: _.clean($scope.q)});
+        var search = $http.post('/api/expenses/search', _.clean($scope.filters));
 
         search.success(function(data) {
           $scope.table.loading = false;
-          $scope.table.expenses = data.results;
+          $scope.table.expenses = data.result;
         });
 
         search.error(function() {

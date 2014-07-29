@@ -3,7 +3,7 @@ class String
     BigDecimal.new(self)
   end
 
-  def to_tsquery(strict = true)
+  def to_tsquery(fuzzy = false)
     return '' if self.blank?
 
     self.
@@ -13,7 +13,7 @@ class String
     gsub('-', ' ').                            # replace all dashes with spaces
     gsub(/\s+/, ' ').                          # replace multiple spaces with just one space
     strip.                                     # strip away leading and trailing spaces
-    gsub(/[\s]/, ":* #{strict ? '&' : '|'} "). # convert spaces into prefix matchers
+    gsub(/[\s]/, ":* #{fuzzy ? '|' : '&'} "). # convert spaces into prefix matchers
     gsub(/(.)$/, '\\1:*')                      # make the last token a prefix matcher as well
   end
 

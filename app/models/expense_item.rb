@@ -1,5 +1,7 @@
 class ExpenseItem < ActiveRecord::Base
-  default_scope { order('id ASC') }
+  include Fulltext
+  include Facets
+  include Ranges
 
   belongs_to :user
 
@@ -8,11 +10,23 @@ class ExpenseItem < ActiveRecord::Base
 
   class << self
     def ransackable_attributes(auth_object = nil)
-      %w[id amount expensed_at description comment]
+      %w[id amount expensed_at description comment search_terms]
     end
 
     def ransortable_attributes(auth_object = nil)
       %w[id amount expensed_at]
+    end
+
+    def ransackable_scopes(auth_object = nil)
+      %w[fulltext]
+    end
+
+    def facetable_attributes
+      %w[comment description]
+    end
+
+    def rangable_attributes
+      %w[amount expensed_at]
     end
   end
 end

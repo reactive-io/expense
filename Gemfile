@@ -13,9 +13,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 
-# gem 'postgres_ext'
-gem 'squeel'
-gem 'ransack'
+gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'squeel', '~> 1.2.1'
 gem 'kaminari'
 
 gem 'therubyrhino'

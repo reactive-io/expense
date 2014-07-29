@@ -25,6 +25,9 @@ module Expense
     config.paths['config/routes.rb'] << 'config/routes/api.rb'
     config.paths['config/routes.rb'] << 'config/routes/web.rb'
 
+    # Do not modify query parameters when empty arrays are passed
+    config.action_dispatch.perform_deep_munge = false
+
     config.to_prepare do
       layout = 'web/layouts/application'
 

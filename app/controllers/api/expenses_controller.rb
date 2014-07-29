@@ -1,9 +1,10 @@
 module Api
   class ExpensesController < ApiController
-    def search
-      expenses = current_user.expense_items
+    include Ransackable
 
-      @results, @counts = search_results(expenses.search(params[:q]))
+    def search
+      @query = ransack(current_user.expense_items)
+      @query.execute!
     end
 
     def create
