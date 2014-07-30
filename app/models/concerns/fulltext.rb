@@ -6,7 +6,7 @@ module Fulltext
       where(
           Arel::Nodes::InfixOperation.new(
               '@@',
-              Arel::Table.new(self.table_name)[:search_terms],
+              Arel::Table.new(self.table_name)[:fulltext_terms],
               Arel::Nodes::NamedFunction.new('to_tsquery', [query.to_tsquery(fuzzy)])
           )
       )

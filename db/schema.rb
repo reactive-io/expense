@@ -11,19 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702194858) do
+ActiveRecord::Schema.define(version: 20140730193113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "expense_items", force: true do |t|
-    t.datetime "expensed_at",               null: false
-    t.string   "description", default: "",  null: false
-    t.string   "comment",     default: "",  null: false
-    t.decimal  "amount",      default: 0.0, null: false
+    t.datetime "expensed_at",                  null: false
+    t.string   "description",    default: "",  null: false
+    t.string   "comment",        default: "",  null: false
+    t.decimal  "amount",         default: 0.0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id",                   null: false
+    t.integer  "user_id",                      null: false
+    t.tsvector "fulltext_terms"
   end
 
   add_index "expense_items", ["user_id"], name: "index_expense_items_on_user_id", using: :btree
@@ -41,7 +43,7 @@ ActiveRecord::Schema.define(version: 20140702194858) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "api_token"
+    t.string   "api_token",                           null: false
   end
 
   add_index "users", ["api_token"], name: "index_users_on_api_token", unique: true, using: :btree
