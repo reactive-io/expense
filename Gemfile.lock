@@ -62,6 +62,7 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.2.1)
+    ffi (1.9.3)
     ffi (1.9.3-java)
     haml (4.0.5)
       tilt
@@ -103,9 +104,9 @@ GEM
       spoon (~> 0.0)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
-    puma (2.8.2)
+    puma (2.9.0)
       rack (>= 1.1, < 2.0)
-    puma (2.8.2-java)
+    puma (2.9.0-java)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -184,7 +185,7 @@ DEPENDENCIES
   momentjs-rails (~> 2.5.0)
   pry
   pry-rails
-  puma (~> 2.8.2)
+  puma (~> 2.9.0)
   rails (= 4.1.4)
   ransack!
   sass-rails (~> 4.0.3)
