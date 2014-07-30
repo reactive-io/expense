@@ -1,7 +1,7 @@
 !!!
 %html(ng-app="application")
   %head
-    %title= @title
+    %title Expense
 
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
@@ -21,13 +21,12 @@
           .navbar-header
             %a.navbar-brand(href=root_path)
               %span.glyphicon.glyphicon-tasks
-              = @title
+              Expense
 
           .collapse.navbar-collapse
             %ul.nav.navbar-nav
               - if user_signed_in?
                 %my-navigation-link(data-label="Expenses" data-icon="usd" data-href="/expenses")
-                %my-navigation-link(data-label="Tests" data-icon="question-sign" data-href="/tests")
 
             %ul.nav.navbar-nav.navbar-right
               - if user_signed_in?

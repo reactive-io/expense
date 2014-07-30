@@ -33,3 +33,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-rails'
 end
+
+group :production do
+  gem 'rails_12factor'
+end

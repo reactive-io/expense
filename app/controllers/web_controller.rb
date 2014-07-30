@@ -6,8 +6,6 @@ class WebController < ApplicationController
   layout 'web/layouts/application'
 
   def index
-    @title = 'Expense'
-
     render file: 'web/layouts/application'
   end
 end
