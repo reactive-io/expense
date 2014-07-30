@@ -5,7 +5,7 @@ module Api
     def search
       @query = ransack(current_user.expense_items)
 
-      @query.dataset = @query.dataset.joins(:user)
+      @query.dataset = @query.dataset.includes(:user)
 
       @query.execute!
     end

@@ -8,19 +8,23 @@ module Ransackable
   end
 
   class RansackQuery
-    attr_accessor :ransack, :dataset, :relation
+    attr_accessor :relation, :ransack, :dataset
     attr_reader   :result, :counts, :facets, :ranges
 
     def initialize(params, relation, options = {})
       @params        = params.clone
       @relation      = relation
       @ransack       = @relation.ransack(@params[:q], options)
-      @dataset       = @ransack.result
-      @ransack.sorts = @params[:s] if @params[:s]
+
+      @dataset       = @ransack.clone
+      @dataset.sorts = @params[:s] || sort_default
+      @dataset       = @dataset.result
     end
 
     def execute!
-      ActiveRecord::Base.transaction(isolation: :repeatable_read) do
+      ActiveRecord::Base.transaction do
+        ActiveRecord::Base.connection.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')
+
         process_result
         process_counts
         process_facets
@@ -49,7 +53,7 @@ module Ransackable
       if relation.model.respond_to?(:facetable_attributes)
         @facets = (@params[:f] || []).reduce({}) do |memo, item|
           if relation.model.facetable_attributes.map(&:to_s).include?(item.to_s)
-            memo[item.to_sym] = relation.ransack(@params[:q]).result.facet(item.to_sym)
+            memo[item.to_sym] = @ransack.result.facet(item.to_sym)
           end
           memo
         end
@@ -60,7 +64,7 @@ module Ransackable
       if relation.model.respond_to?(:rangable_attributes)
         @ranges = (@params[:r] || []).reduce({}) do |memo, item|
           if relation.model.rangable_attributes.map(&:to_s).include?(item.to_s)
-            memo[item.to_sym] = relation.ransack(@params[:q]).result.range(item.to_sym)
+            memo[item.to_sym] = @ransack.result.range(item.to_sym)
           end
           memo
         end
@@ -77,9 +81,9 @@ module Ransackable
 
     def page_per
       @page_per ||= lambda {
-        per = page[:per].to_i || Kaminari.config.default_per_page
+        per = page[:per] || Kaminari.config.default_per_page
         per > page_max ? Kaminari.config.max_per_page : per
-      }.call
+      }.call.to_i
     end
 
     def page_max
@@ -88,6 +92,10 @@ module Ransackable
 
     def page_offset
       @page_offset ||= (page_num - 1) * page_per
+    end
+
+    def sort_default
+      [{name: 'id', dir: 'asc'}]
     end
   end
 end
