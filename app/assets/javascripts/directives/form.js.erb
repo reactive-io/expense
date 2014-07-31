@@ -98,14 +98,14 @@
     };
   });
 
-  mod.directive('myDatetimePicker', function() {
+  mod.directive('myDatePicker', function() {
     return {
       restrict: 'C',
 
       scope: true,
 
       link: function(_$scope, element, attrs) {
-        element.datetimepicker();
+        element.datepicker();
       }
     }
   });
