@@ -76,7 +76,7 @@ module Ransackable
     end
 
     def page_num
-      @page_num ||= page[:num].to_i || 1
+      @page_num ||= (page[:num] || 1).to_i
     end
 
     def page_per
