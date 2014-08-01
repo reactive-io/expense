@@ -77,13 +77,14 @@
 
       newExpense: function() {
         this.isNew = true;
-        this.expense = {expensed_at: moment().format('YYYY-MM-DD HH:mm')};
+        this.expense = {expensed_at: moment().format('YYYY-MM-DD')};
       }.bind($scope.modal),
 
       editExpense: function(expense, index) {
         this.isNew = false;
         this.index = index;
         this.expense = angular.copy(expense);
+        this.expense.expensed_at = moment(this.expense.expensed_at).format('YYYY-MM-DD');
       }.bind($scope.modal)
     };
   }]);

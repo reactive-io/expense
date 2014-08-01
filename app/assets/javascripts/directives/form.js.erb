@@ -104,7 +104,8 @@
 
       scope: true,
 
-      link: function(_$scope, element, attrs) {
+      link: function(_$scope, element) {
+        console.log(element);
         element.datepicker();
       }
     }

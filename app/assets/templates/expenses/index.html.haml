@@ -55,15 +55,15 @@
         %thead
           %tr
             %th(style="width: 50px;") ID
-            %th(style="width: 175px;") Expensed At
-            %th(style="width: 300px;") Description
+            %th(style="width: 125px;") Expensed At
+            %th(style="width: 350px;") Description
             %th Comment
-            %th(style="width: 100px;") Amount
+            %th(style="width: 125px;") Amount
 
         %tbody
           %tr.cursor-pointer(data-toggle="modal" data-target="#expense-modal" ng-repeat="expense in table.expenses" ng-click="table.editExpense(expense, $index)")
             %td(ng-bind="expense.id")
-            %td(ng-bind="expense.expensed_at | date: 'yyyy-MM-dd h:mm a'")
+            %td(ng-bind="expense.expensed_at | date: 'yyyy-MM-dd'")
             %td(ng-bind="expense.description")
             %td(ng-bind="expense.comment")
             %td(ng-bind="expense.amount | currency")
