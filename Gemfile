@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0', engine: 'jruby', engine_version: '1.7.13'
-#ruby=jruby-1.7.13
+ruby '2.0.0', engine: 'jruby', engine_version: '1.7.16.1'
+#ruby=jruby-1.7.16.1
 
-gem 'rails', '4.1.4'
-gem 'puma', '~> 2.9.0'
+gem 'rails', '4.1.7'
+gem 'puma', '~> 2.9.2'
 
 gem 'activerecord-jdbcpostgresql-adapter'
 

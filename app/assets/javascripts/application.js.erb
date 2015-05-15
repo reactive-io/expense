@@ -45,12 +45,4 @@
         redirectTo: '/expenses'
       });
     }]);
-
-  app.run(['$rootScope', '$location', function($rootScope, $location) {
-    $rootScope.
-      $on('$routeChangeStart', function(event, next, current) {
-        // prevents bootstrap-datetimepicker from leaving unwanted dropdown menus lying around.
-        $('body > div.bootstrap-datetimepicker-widget.dropdown-menu').remove();
-      });
-  }]);
 })();

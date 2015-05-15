@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20140730193113) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id",                      null: false
-    t.tsvector "fulltext_terms"
+    t.tsvector "fulltext"
   end
 
   add_index "expense_items", ["user_id"], name: "index_expense_items_on_user_id", using: :btree

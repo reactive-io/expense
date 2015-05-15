@@ -13,16 +13,16 @@ class String
     gsub('-', ' ').                            # replace all dashes with spaces
     gsub(/\s+/, ' ').                          # replace multiple spaces with just one space
     strip.                                     # strip away leading and trailing spaces
-    gsub(/[\s]/, ":* #{fuzzy ? '|' : '&'} "). # convert spaces into prefix matchers
+    gsub(/[\s]/, ":* #{fuzzy ? '|' : '&'} ").  # convert spaces into prefix matchers
     gsub(/(.)$/, '\\1:*')                      # make the last token a prefix matcher as well
   end
 
   def to_slug
     self.
     downcase.                  # make all lowercase
-    gsub(/'/, "").             # remove contractions
-    gsub(/[^[:alnum:]]/, "_"). # remove non-alpha-numeric characters
-    gsub(/_{2,}/, "_").        # remove duplicate underscores
-    gsub(/^_|_$/, "")          # remove heading and tailing underscores
+    gsub(/'/, '').             # remove contractions
+    gsub(/[^[:alnum:]]/, '_'). # remove non-alpha-numeric characters
+    gsub(/_{2,}/, '_').        # remove duplicate underscores
+    gsub(/^_|_$/, '')          # remove heading and tailing underscores
   end
 end

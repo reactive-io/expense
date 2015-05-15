@@ -13,12 +13,12 @@ class ExpenseItem < ActiveRecord::Base
       %w[id amount expensed_at description comment search_terms]
     end
 
-    def ransortable_attributes(auth_object = nil)
-      %w[id amount expensed_at]
-    end
-
     def ransackable_scopes(auth_object = nil)
       %w[fulltext]
+    end
+
+    def ransortable_attributes(auth_object = nil)
+      %w[id amount expensed_at]
     end
 
     def facetable_attributes
